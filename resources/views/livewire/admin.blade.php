@@ -1,6 +1,6 @@
 <x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        課題管理 - 管理画面
+    <h2 class="text-xl text-gray-800 leading-tight">
+        管理者画面
     </h2>
 </x-slot>
 <div class="py-12">

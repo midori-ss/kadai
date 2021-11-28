@@ -3,6 +3,13 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <h2 class="font-bold text-xl text-gray-800 leading-tight">
+                        <a href="{{ url('/') }}">
+                            課題管理
+                        </a>
+                    </h2>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -28,6 +35,16 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            @if(Auth::user()->role === 1)
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage Account') }}
+                            </div>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-jet-dropdown-link>
+                            @endif
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -75,6 +92,12 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                @if(Auth::user()->role === 1)
+                <!-- Account Management -->
+                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    {{ __('Profile') }}
+                </x-jet-responsive-nav-link>
+                @endif
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
