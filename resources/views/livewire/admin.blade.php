@@ -17,6 +17,16 @@
             <input type="file" name="file" id="file" class="form-control">
             <button type="submit" class="bg-indigo-500 hover bg-indigo-700 text-white font-bold py-2 px-4 rounded my-3">アップロード</button>
         </form>
+        <form method="get" action="/admin/export">
+            {{ csrf_field() }}
+            <select name="year" class="form-control">
+                <option value="1">1年生</option>
+                <option value="2">2年生</option>
+                <option value="3">3年生</option>
+            </select>
+            <button type="submit" class="bg-indigo-500 hover bg-indigo-700 text-white font-bold py-2 px-4 rounded my-3">ダウンロード</button>
+        </form>
+        
         <div class="bg-white overflow-hidden shadow-x1 sm rounded-lg px-4 py-4">
             @if(session()->has('message'))
                 <div class="bg-teal-100 border-lt-4 border teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
@@ -122,12 +132,11 @@
                             </div>
                             <div class="hidden" id="tab-two">
                                 <p>
-                                    <table class="border">
+                                    <table class="table-fixed w-full border">
                                         <thead>
                                             <tr>
                                             <th class="px-4 py-2">受験番号</th>
-                                            <th class="px-4 py-2">名前</th>
-                                            <th class="px-4 py-2"></th>
+                                            <th class="px-4 py-2 w-1/4 text-left">名前</th>
                                             <th class="px-4 py-2"></th>
                                             </tr>
                                         </thead>
@@ -155,12 +164,11 @@
                             </div>
                             <div class="hidden" id="tab-three">
                                 <p>
-                                    <table class="border">
+                                    <table class="table-fixed w-full border">
                                         <thead>
                                             <tr>
                                             <th class="px-4 py-2">受験番号</th>
-                                            <th class="px-4 py-2">名前</th>
-                                            <th class="px-4 py-2"></th>
+                                            <th class="px-4 py-2 w-1/4 text-left">名前</th>
                                             <th class="px-4 py-2"></th>
                                             </tr>
                                         </thead>

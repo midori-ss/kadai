@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ use App\Models\KadaiStatus;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
+use App\Exports\UsersExport;
 
 class Admin extends Component
 {
@@ -153,5 +155,18 @@ class Admin extends Component
 
         session()->flash('message', 'Import Successfully.');
         return redirect('/admin');
+    }
+
+    public function export(Request $request) {
+        $num = $request->year;
+        $data = new UsersExport($num); 
+        $content = Excel::raw($data, \Maatwebsite\Excel\Excel::CSV); 
+        $content = mb_convert_encoding($content, 'SJIS', 'auto');
+        $headers = [
+            'Content-Type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="users.csv"'
+            ];
+        return \Response::make($content, 200, $headers);
+        // return Excel::download(new UsersExport($num), 'users.csv');
     }
 }

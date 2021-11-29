@@ -30,3 +30,4 @@ Route::get('admin', Admin::class)->middleware('auth')->name('admin');
 Route::get('student', Student::class)->middleware('auth')->name('student');
 
 Route::post('admin/import', [Admin::class, 'import']);
+Route::get('admin/export', [Admin::class, 'export']);
