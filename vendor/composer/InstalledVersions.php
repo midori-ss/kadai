@@ -489,6 +489,15 @@ private static $installed = array (
         0 => '*',
       ),
     ),
+    'kyslik/column-sortable' => 
+    array (
+      'pretty_version' => '6.4.1',
+      'version' => '6.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '44f9da98acd31b2e871d0074bd638998990888b1',
+    ),
     'laravel/fortify' => 
     array (
       'pretty_version' => 'v1.8.3',

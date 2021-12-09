@@ -47,9 +47,9 @@
             <table class="table-fixed w-full border">
                 <thead>
                     <tr class="bg-gray-1000">
-                        <th class="px-4 py2 w-20 text-xs w-1/6 sm:text-base">ID</th>
-                        <th class="px-4 py-2 text-left text-xs sm:text-base">課題名</th>
-                        <th class="px-4 py-2 text-left text-xs sm:text-base">対象学年</th>
+                        <th class="px-4 py2 w-20 text-xs w-1/6 sm:text-base">@sortablelink('id', 'ID')</th>
+                        <th class="px-4 py-2 text-left text-xs sm:text-base">@sortablelink('name', '課題名')</th>
+                        <th class="px-4 py-2 text-left text-xs sm:text-base">@sortablelink('target', '対象学年')</th>
                         <th class="px-4 py-4"></th>
                     </tr>
                 </thead>

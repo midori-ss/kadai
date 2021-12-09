@@ -24,7 +24,7 @@ class Admin extends Component
 
     public function render()
     {
-        $this->kadais = Kadai::all();
+        $this->kadais = Kadai::sortable()->get();
         //1年生
         $this->users1  = User::where('code', 'LIKE', '1%')->orderBy('code', 'ASC')->get();
         for($i = 0; $i < count($this->users1); $i++) {
