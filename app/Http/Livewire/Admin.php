@@ -150,6 +150,10 @@ class Admin extends Component
     public function import(Request $request){
 
 		$file = $request->file('file');
+        if ($file == null) {
+            session()->flash('message', 'Please select import csv file!!');
+            return redirect('/admin');
+        }
 
 		Excel::import(new UsersImport, $file);
 
