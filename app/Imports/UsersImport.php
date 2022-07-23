@@ -47,42 +47,33 @@ class UsersImport implements ToCollection, WithHeadingRow
             switch (substr((string)$row['code'], 0, 1)) {
                 case '1':
                     foreach($kadais_1 as $kadai1) {
-                        if ($row->has((string)($kadai1->id))) {
-                            $status = $row[(string)$kadai1->id];
-                            $st = 0;
-                            if ($status == '済') { $st = 1; }
-                            else if ($status == '不要') { $st = 2; }
+                        if ($row->has((string)($kadai1->id) . ":" . $kadai1->name)) {
+                            $status = $row[(string)$kadai1->id . ":" . $kadai1->name];
                             KadaiStatus::updateOrCreate(
                                 ['kadai_id' => $kadai1->id, 'user_code' => $row['code']],
-                                ['status' => $st]
+                                ['status' => $status]
                             );
                         }
                     }
                     break;
                 case '2':
                     foreach($kadais_2 as $kadai2) {
-                        if ($row->has((string)($kadai2->id))) {
-                            $status = $row[(string)$kadai2->id];
-                            $st = 0;
-                            if ($status == '済') { $st = 1; }
-                            else if ($status == '不要') { $st = 2; }
+                        if ($row->has((string)($kadai2->id) . ":" . $kadai2->name)) {
+                            $status = $row[(string)$kadai2->id . ":" . $kadai2->name];
                             KadaiStatus::updateOrCreate(
                                 ['kadai_id' => $kadai2->id, 'user_code' => $row['code']],
-                                ['status' => $st]
+                                ['status' => $status]
                             );
                         }
                     }
                     break;
                 case '3':
                     foreach($kadais_3 as $kadai3) {
-                        if ($row->has((string)($kadai3->id))) {
-                            $status = $row[(string)$kadai3->id];
-                            $st = 0;
-                            if ($status == '済') { $st = 1; }
-                            else if ($status == '不要') { $st = 2; }
+                        if ($row->has((string)($kadai3->id) . ":" . $kadai3->name)) {
+                            $status = $row[(string)$kadai3->id . ":" . $kadai3->name];
                             KadaiStatus::updateOrCreate(
                                 ['kadai_id' => $kadai3->id, 'user_code' => $row['code']],
-                                ['status' => $st]
+                                ['status' => $status]
                             );
                         }
                     }

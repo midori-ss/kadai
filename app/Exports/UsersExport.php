@@ -34,7 +34,7 @@ class UsersExport implements FromCollection, WithHeadings
         $selectCol = $this->cols;
         $selectCol[1] = DB::raw("''");
         foreach($this->kadais as $kadai) {
-            array_push($selectCol, DB::raw("(case ks".$kadai->id.".status when 0 then '未提出' when 1 then '済' when 2 then '不要' end) as status"));
+            array_push($selectCol, DB::raw("cast(ks".$kadai->id.".status as char)"));
         }
         $qry = User::select($selectCol)
                     ->where('code', 'LIKE', $this->year.'%');
@@ -53,7 +53,7 @@ class UsersExport implements FromCollection, WithHeadings
 	{
         $result = $this->cols;
         foreach($this->kadais as $kadai) {
-            array_push($result, $kadai->id);
+            array_push($result, $kadai->id . ":" . $kadai->name);
         }
 		return $result;
 	}

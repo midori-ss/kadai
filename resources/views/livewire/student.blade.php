@@ -17,22 +17,7 @@
                     @foreach($kadais as $kadai)
                         <tr>
                             <td class="border px-4 py-2">{{ $kadai->name }}</td>
-                            <td class="border px-4 py-2">
-                                @switch($kadai->status)
-                                    @case(0)
-                                        未提出
-                                        @break
-                                    @case(1)
-                                        済
-                                        @break
-                                    @case(2)
-                                        不要
-                                        @break
-                                    @default
-                                        未提出
-                                        @break
-                                @endswitch
-                            </td>
+                            <td class="border px-4 py-2">{{$kadai->status}}</td>
                         </tr>
                     @endforeach
                 </tbody>

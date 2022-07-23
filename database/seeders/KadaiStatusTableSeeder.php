@@ -18,14 +18,14 @@ class KadaiStatusTableSeeder extends Seeder
             [
                 'kadai_id' => 1,
                 'user_code' => 2,
-                'status' => 0,
+                'status' => "未提出",
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'kadai_id' => 2,
                 'user_code' => 3,
-                'status' => 1,
+                'status' => "済",
                 'created_at' => now(),
                 'updated_at' => now()
             ]

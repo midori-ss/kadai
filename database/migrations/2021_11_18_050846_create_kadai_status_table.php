@@ -17,7 +17,7 @@ class CreateKadaiStatusTable extends Migration
             $table->id();
             $table->unsignedBigInteger('kadai_id');
             $table->string('user_code');
-            $table->tinyInteger('status')->default(0);
+            $table->string('status');
             $table->timestamps();
         });
     }

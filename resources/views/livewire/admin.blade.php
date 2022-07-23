@@ -115,13 +115,7 @@
                                                 <td class="px-4 py-2">{{$user1->name}}</td>
                                                 @foreach($user1->kadais as $kadai)
                                                 <td class="px-4 py-2">{{$kadai->kadai_name}}：
-                                                    @if ($kadai->status == 1)
-                                                    済
-                                                    @elseif ($kadai->status == 2)
-                                                    不要
-                                                    @else
-                                                    未提出
-                                                    @endif
+                                                    {{$kadai->status}}
                                                 </td>
                                                 @endforeach
                                             </tr>
@@ -143,17 +137,11 @@
                                         <tbody>
                                         @foreach($users2 as $user2)
                                             <tr v-for="row in rows" class="bg-white odd:bg-gray-200">
-                                                <td class="border px-4 py-2">{{$user2->code}}</td>
-                                                <td class="border px-4 py-2">{{$user2->name}}</td>
+                                                <td class="px-4 py-2 text-center">{{$user2->code}}</td>
+                                                <td class="px-4 py-2">{{$user2->name}}</td>
                                                 @foreach($user2->kadais as $kadai)
-                                                <td>{{$kadai->kadai_name}}：
-                                                    @if ($kadai->status == 1)
-                                                    済
-                                                    @elseif ($kadai->status == 2)
-                                                    不要
-                                                    @else
-                                                    未提出
-                                                    @endif
+                                                <td class="px-4 py-2">{{$kadai->kadai_name}}：
+                                                    {{$kadai->status}}
                                                 </td>
                                                 @endforeach
                                             </tr>
@@ -175,17 +163,11 @@
                                         <tbody>
                                         @foreach($users3 as $user3)
                                             <tr v-for="row in rows" class="bg-white odd:bg-gray-200">
-                                                <td class="border px-4 py-2">{{$user3->code}}</td>
-                                                <td class="border px-4 py-2">{{$user3->name}}</td>
+                                                <td class="px-4 py-2 text-center">{{$user3->code}}</td>
+                                                <td class="px-4 py-2">{{$user3->name}}</td>
                                                 @foreach($user3->kadais as $kadai)
-                                                <td>{{$kadai->kadai_name}}：
-                                                    @if ($kadai->status == 1)
-                                                    済
-                                                    @elseif ($kadai->status == 2)
-                                                    不要
-                                                    @else
-                                                    未提出
-                                                    @endif
+                                                <td class="px-4 py-2">{{$kadai->kadai_name}}：
+                                                    {{$kadai->status}}
                                                 </td>
                                                 @endforeach
                                             </tr>
