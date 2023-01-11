@@ -33,15 +33,15 @@ class UsersImport implements ToCollection, WithHeadingRow
         $kadais_2 = Kadai::where('target', 2)->get();
         $kadais_3 = Kadai::where('target', 3)->get();
         foreach ($rows as $row) {
-            if ($row['password'] == null || $row['password'] == '') {
+            if ($row['password'] == null || $row['password'] == '' || $row['password'] == '*****') {
                 User::updateOrCreate(
                     ['code' => $row['code']],
-                    ['name' => $row['name'],]
+                    ['name' => $row['name'], 'memo' => $row['memo']]
                 );
             } else {
                 User::updateOrCreate(
                     ['code' => $row['code']],
-                    ['password' => Hash::make($row['password']), 'name' => $row['name'],]
+                    ['password' => Hash::make($row['password']), 'name' => $row['name'], 'memo' => $row['memo']]
                 );
             }
             switch (substr((string)$row['code'], 0, 1)) {

@@ -44,6 +44,9 @@
             @if($isConfirmOpen)
             @include('livewire.delete-confirm')
             @endif
+            @if($isStudentConfirmOpen)
+            @include('livewire.delete-student-confirm')
+            @endif
             <table class="table-fixed w-full border">
                 <thead>
                     <tr class="bg-gray-1000">
@@ -76,6 +79,12 @@
                 </tbody>
             </table>
         </div>
+        <div class="px-4 py-4">
+            <form method="get" action="/admin/downloadLog">
+                {{ csrf_field() }}
+                <button type="submit" class="bg-indigo-500 hover bg-indigo-700 text-white font-bold py-2 px-4 rounded my-3">生徒ログイン履歴ダウンロード</button>
+            </form>
+        </div>
         <div class="flex flex-wrap mt-5" id="tabs-id">
             <div class="w-full">
                 <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
@@ -100,6 +109,7 @@
                         <div class="tab-content tab-space">
                             <div class="block" id="tab-one">
                                 <p>
+                                    <button wire:click="deleteStudentsConfirm(1)" class="bg-red-500 hover bg-red-700 text-white font-bold py-2 px-4 rounded my-3">1年生全削除</button>
                                     <table class="table-fixed w-full border">
                                         <thead>
                                             <tr>
@@ -118,6 +128,16 @@
                                                     {{$kadai->status}}
                                                 </td>
                                                 @endforeach
+                                                <td>
+                                                    {{$user1->memo}}
+                                                </td>
+                                                <td class="px-1 py-1 text-right">
+                                                    <button wire:click="deleteStudentConfirm({{ $user1->code }}, '{{ $user1->name }}')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -126,6 +146,7 @@
                             </div>
                             <div class="hidden" id="tab-two">
                                 <p>
+                                    <button wire:click="deleteStudentsConfirm(2)" class="bg-red-500 hover bg-red-700 text-white font-bold py-2 px-4 rounded my-3">2年生全削除</button>
                                     <table class="table-fixed w-full border">
                                         <thead>
                                             <tr>
@@ -144,6 +165,16 @@
                                                     {{$kadai->status}}
                                                 </td>
                                                 @endforeach
+                                                <td>
+                                                    {{$user2->memo}}
+                                                </td>
+                                                <td class="px-1 py-1 text-right">
+                                                    <button wire:click="deleteStudentConfirm({{ $user2->code }}, '{{ $user2->name }}')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -152,6 +183,7 @@
                             </div>
                             <div class="hidden" id="tab-three">
                                 <p>
+                                    <button wire:click="deleteStudentsConfirm(3)" class="bg-red-500 hover bg-red-700 text-white font-bold py-2 px-4 rounded my-3">3年生全削除</button>
                                     <table class="table-fixed w-full border">
                                         <thead>
                                             <tr>
@@ -170,6 +202,16 @@
                                                     {{$kadai->status}}
                                                 </td>
                                                 @endforeach
+                                                <td>
+                                                    {{$user3->memo}}
+                                                </td>
+                                                <td class="px-1 py-1 text-right">
+                                                    <button wire:click="deleteStudentConfirm({{ $user3->code }}, '{{ $user3->name }}')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

@@ -23,6 +23,7 @@ class UsersExport implements FromCollection, WithHeadings
             'code', 
             'password',
             'name',
+            'memo',
         ];
     }
 
@@ -32,7 +33,7 @@ class UsersExport implements FromCollection, WithHeadings
     public function collection()
     {
         $selectCol = $this->cols;
-        $selectCol[1] = DB::raw("''");
+        $selectCol[1] = DB::raw("'*****'");
         foreach($this->kadais as $kadai) {
             array_push($selectCol, DB::raw("cast(ks".$kadai->id.".status as char)"));
         }

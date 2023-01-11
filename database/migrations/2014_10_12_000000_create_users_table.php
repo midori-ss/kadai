@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('code')->unique();
             $table->string('password');
             $table->tinyInteger('role')->default(2)->comment('権限');
+            $table->string('memo');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

@@ -31,3 +31,4 @@ Route::get('student', Student::class)->middleware('auth')->name('student');
 
 Route::post('admin/import', [Admin::class, 'import']);
 Route::get('admin/export', [Admin::class, 'export']);
+Route::get('admin/downloadLog', [Admin::class, 'downloadLog']);

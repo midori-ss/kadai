@@ -15,12 +15,14 @@ use App\Models\KadaiStatus;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use App\Exports\UsersExport;
+use App\Exports\LogExport;
 
 class Admin extends Component
 {
-    public $kadais, $name, $target, $kadai_id, $users1, $users2, $users3;
+    public $kadais, $name, $target, $kadai_id, $users1, $users2, $users3, $user_code, $user_name, $del_year;
     public $isOpen = false;
     public $isConfirmOpen = false;
+    public $isStudentConfirmOpen = false;
 
     public function render()
     {
@@ -69,6 +71,7 @@ class Admin extends Component
         $this->openModal();
     }
 
+    //課題作成Modal
     public function openModal() {
         $this->isOpen = true;
     }
@@ -77,6 +80,7 @@ class Admin extends Component
         $this->isOpen = false;
     }
 
+    //課題削除Confirm
     public function openConfirm() {
         $this->isConfirmOpen = true;
     }
@@ -85,9 +89,18 @@ class Admin extends Component
         $this->isConfirmOpen = false;
     }
 
+    //生徒削除Confirm
+    public function openStudentConfirm() {
+        $this->isStudentConfirmOpen = true;
+    }
+
+    public function closeStudentConfirm() {
+        $this->isStudentConfirmOpen = false;
+    }
+
     public function resetInputFields() {
         $this->name = '';
-        $this->target = 0;
+        $this->target = 1;
         $this->kadai_id = null;
     }
 
@@ -100,19 +113,19 @@ class Admin extends Component
             ['id' => $this->kadai_id],
             ['name' => $this->name, 'target' => $this->target]
         );
-        $newest = Kadai::max('id').get();
+        $newest = Kadai::max('id');
         if ($this->kadai_id) {
             //INSERT成功メッセージ
             session()->flash('message', 'Kadai Updated Successfully.');
         } else {
             // 対象学年の全生徒分statusテーブルにレコードをINSERT
-            $users = User::where('code', 'LIKE', $this->target.'%');
-            foreach($ususer_listers as $user) {
-                $ks = new KadaiStatus;
-                $ks->kadai_id = $newest;
-                $ks->user_code = $user->code;
-                $ks->status = 0;
-                KadaiStatus::save();
+            $users = User::where('code', 'LIKE', $this->target.'%')->get();
+            Log::debug(count($users));
+            foreach($users as $user) {
+                KadaiStatus::create([
+                    'kadai_id' => $newest,
+                    'user_code' => $user->code,
+                ]);
             }
             // UPDATE成功メッセージ
             session()->flash('message', 'Kadai Created Successfully.');
@@ -146,6 +159,34 @@ class Admin extends Component
         $this->resetInputFields();
         $this->closeConfirm();
     }
+
+    public function deleteStudentConfirm($code, $name)
+    {
+        $this->user_code = $code;
+        $this->user_name = $name;
+        $this->openStudentConfirm();
+    }
+
+    public function deleteStudentsConfirm($year)
+    {
+        $this->del_year = $year;
+        $this->openStudentConfirm();
+    }
+
+    public function deleteStudent()
+    {
+        if ($this->del_year) {
+            KadaiStatus::where('user_code', 'LIKE', $this->del_year.'%')->delete();
+            User::where('code', 'LIKE', $this->del_year.'%')->delete();
+        } else {
+            KadaiStatus::where('user_code', $this->user_code)->delete();
+            User::whereCode($this->user_code) -> first() -> delete();
+        }
+        
+        session()->flash('message', 'User Deleted Successfully.');
+        $this->del_year = null;
+        $this->closeStudentConfirm();
+    }
     
     public function import(Request $request){
 
@@ -172,5 +213,16 @@ class Admin extends Component
             ];
         return \Response::make($content, 200, $headers);
         // return Excel::download(new UsersExport($num), 'users.csv');
+    }
+
+    public function downloadLog(Request $request) {
+        $data = new LogExport();
+        $content = Excel::raw($data, \Maatwebsite\Excel\Excel::CSV); 
+        $content = mb_convert_encoding($content, 'SJIS', 'auto');
+        $headers = [
+            'Content-Type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="login_log_' . date('Ymd_Hi') . '.csv"'
+            ];
+        return \Response::make($content, 200, $headers);
     }
 }
